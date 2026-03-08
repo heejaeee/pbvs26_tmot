@@ -104,7 +104,7 @@ pbvs25_tp-mot
 
 #### V. Acknowledgement
 
-Most of the code is adapted from [Mon](https://github.com/DuongTran1708/pbvs25_tp-mot). 
+Most of the code is adapted from [pbvs25_mot](https://github.com/DuongTran1708/pbvs25_tp-mot). 
 
 This repository also features code from 
 [Ultralytics](https://github.com/ultralytics/ultralytics),
