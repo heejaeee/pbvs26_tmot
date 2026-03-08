@@ -1,0 +1,5 @@
+{
+  "class_labels" : [
+    { "name": "person" , "id": 1, "train_id": 0, "category": "person", "catId": 1, "color": [255, 59 , 48] }
+  ]
+}
