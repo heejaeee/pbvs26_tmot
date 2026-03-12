@@ -322,7 +322,7 @@
     }
 
     .insight-card {
-      padding: 1.5rem;
+      padding: 1.8rem 2rem;
       border-radius: 12px;
       border: 1px solid var(--border-subtle);
     }
@@ -340,7 +340,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      margin-bottom: 0.8rem;
+      margin-bottom: 1rem;
     }
     .insight-card.problem h4 { color: var(--accent-red); }
     .insight-card.solution h4 { color: var(--accent-green); }
@@ -352,15 +352,20 @@
     }
     .insight-card li {
       font-size: 0.9rem;
-      line-height: 1.6;
-      padding-left: 1.2rem;
+      line-height: 1.5;
+      padding-left: 1.4rem;
+      margin-bottom: 0.65em;
       position: relative;
       color: var(--text-secondary);
+    }
+    .insight-card li:last-child {
+      margin-bottom: 0;
     }
     .insight-card li::before {
       position: absolute;
       left: 0;
-      font-size: 0.75rem;
+      font-size: 0.8rem;
+      top: 0.05em;
     }
     .insight-card.problem li::before { content: '✕'; color: var(--accent-red); }
     .insight-card.solution li::before { content: '✓'; color: var(--accent-green); font-weight: 700; }
@@ -467,7 +472,7 @@
     .contrib-card p {
       font-size: 0.85rem;
       color: var(--text-secondary);
-      line-height: 1.55;
+      line-height: 1.6;
     }
 
     /* ── Stitching Detail ── */
@@ -626,7 +631,7 @@
     
     <div class="uw-badge">
       <i class="fas fa-trophy" style="font-size:0.7rem;"></i>
-      PBVS 2025 TP-MOT Challenge &mdash; Top-3 Finalist
+      PBVS 2026 TP-MOT Challenge &mdash; Top-3 Finalist
     </div>
 
     <h1 class="paper-title">
@@ -659,7 +664,7 @@
       <a href="https://github.com/heejaeee/pbvs26_tmot" class="link-btn secondary" target="_blank">
         <i class="fab fa-github"></i> Code
       </a>
-      <a href="pbvs26_mot_poster" class="link-btn secondary" target="_blank">
+      <a href="pbvs26_mot_poster.pdf" class="link-btn secondary" target="_blank">
         <i class="fas fa-image"></i> Poster
       </a>
     </div>
@@ -670,7 +675,7 @@
 <!-- ════════════════ TL;DR ════════════════ -->
 <div class="tldr-banner">
   <span class="tldr-label">TL;DR</span>
-  YOLOv8 + optimized SORT + tracklet stitching achieves <strong>MOTA 0.99</strong> &amp; <strong>IDF1 0.86</strong> &mdash; no heavy Re-ID needed!
+  YOLOv8 + tuned SORT + tracklet stitching &rarr; <strong>MOTA 0.99</strong> &amp; <strong>IDF1 0.86</strong>, no Re-ID needed
 </div>
 
 <!-- ════════════════ ABSTRACT ════════════════ -->
@@ -679,7 +684,13 @@
     <h2 class="section-title">Abstract</h2>
     <hr class="section-divider">
     <p class="abstract-text">
-      Tracking multiple objects in thermal imagery is important for surveillance and perception under low-visibility conditions, but thermal images pose specific difficulties: objects lack distinctive appearance features, contrast is low, and occlusions are common. We propose <strong>a three-stage framework</strong> for pedestrian MOT on the TP-MOT benchmark, combining thermal-adapted detection, online tracking, and an offline tracklet stitching module. The core of our approach is <strong>a lightweight post-processing step</strong> that reconnects fragmented trajectories by exploiting temporal gaps, spatial proximity, motion consistency, and boundary-aware constraints. This design keeps the online tracker simple — no re-identification network or global optimization is needed — while substantially improving identity preservation. On the PBVS Thermal MOT benchmark, the proposed stitching stage consistently reduces fragmentation and improves long-term identity continuity over the baseline tracking output, offering a practical and real-time-capable solution for thermal pedestrian surveillance.
+      Tracking multiple objects in thermal imagery is important for surveillance and perception under low-visibility conditions, but thermal images pose specific difficulties: objects lack distinctive appearance features, contrast is low, and occlusions are common.
+    </p>
+    <p class="abstract-text" style="margin-top: 0.8rem;">
+      We propose <strong>a three-stage framework</strong> for pedestrian MOT on the TP-MOT benchmark, combining thermal-adapted detection, online tracking, and an offline tracklet stitching module. The core of our approach is <strong>a lightweight post-processing step</strong> that reconnects fragmented trajectories by exploiting temporal gaps, spatial proximity, motion consistency, and boundary-aware constraints. This keeps the online tracker simple&mdash;no re-identification network or global optimization is needed&mdash;while substantially improving identity preservation.
+    </p>
+    <p class="abstract-text" style="margin-top: 0.8rem;">
+      On the PBVS Thermal MOT benchmark, the proposed stitching stage consistently reduces fragmentation and improves long-term identity continuity, offering a practical real-time solution for thermal pedestrian surveillance.
     </p>
   </div>
 </section>
@@ -694,18 +705,18 @@
       <div class="insight-card problem">
         <h4><i class="fas fa-exclamation-triangle"></i>&ensp;Thermal MOT Challenges</h4>
         <ul>
-          <li>Heat-only sensing &mdash; no color or texture cues</li>
+          <li>Heat-only sensing&mdash;no color or texture</li>
           <li>Low contrast, frequent occlusion</li>
-          <li>Abrupt motion & scale changes</li>
+          <li>Abrupt motion &amp; scale changes</li>
         </ul>
       </div>
       <div class="insight-card solution">
         <h4><i class="fas fa-lightbulb"></i>&ensp;Our Key Insight</h4>
         <ul>
-          <li>Tune a simple pipeline, don't stack complex modules</li>
+          <li>Tune a simple pipeline, don't stack modules</li>
           <li>SORT tracker + offline tracklet stitching</li>
-          <li>Short-gap repair (Δt ≤ 7, d ≤ 60 px) + motion-consistent merging</li>
-          <li>No Re-ID needed &mdash; 96,000× less memory than SAM3</li>
+          <li>Short-gap repair + motion-aware merging</li>
+          <li>No Re-ID&mdash;96,000&times; less memory than SAM3</li>
         </ul>
       </div>
     </div>
@@ -723,31 +734,31 @@
         <div class="stage-card">
           <div class="stage-number">1</div>
           <h4>Input</h4>
-          <p>Raw thermal image sequences from roadside surveillance</p>
+          <p>Thermal image sequences</p>
         </div>
         <div class="stage-card">
           <div class="stage-number">2</div>
           <h4>Detection</h4>
-          <p>YOLOv8-based pedestrian detector<br>(1920×1920, conf=10⁻⁴, NMS=0.75)</p>
+          <p>YOLOv8s pedestrian detector<br>(1920px, conf&thinsp;=&thinsp;10⁻⁴, NMS&thinsp;=&thinsp;0.75)</p>
         </div>
         <div class="stage-card">
           <div class="stage-number">3</div>
           <h4>Online Tracking</h4>
-          <p>SORT: Kalman filter prediction + Hungarian matching (IoU gate=0.001)</p>
+          <p>SORT: Kalman filter +<br>Hungarian matching</p>
         </div>
         <div class="stage-card highlight">
           <div class="stage-number">4</div>
           <h4>Identity Repair</h4>
-          <p>Online short-gap ID recovery + Offline motion-consistent tracklet stitching</p>
+          <p>Online short-gap recovery +<br>Offline tracklet stitching</p>
         </div>
         <div class="stage-card">
           <div class="stage-number">5</div>
           <h4>Output</h4>
-          <p>Identity-consistent pedestrian trajectories</p>
+          <p>Identity-consistent trajectories</p>
         </div>
       </div>
       <p class="pipeline-caption">
-        <strong>Figure 1.</strong> Overview of the proposed thermal pedestrian MOT pipeline. Stage 4 (highlighted) is our main contribution &mdash; a two-level identity-repair module that stitches fragmented tracklets using temporal, spatial, and kinematic evidence.
+        <strong>Figure 1.</strong> Proposed thermal pedestrian MOT pipeline. Stage 4 (highlighted) is our main contribution.
       </p>
     </div>
 
@@ -755,7 +766,7 @@
     <div class="stitching-detail">
       <h3>Offline Motion-Consistent Tracklet Stitching</h3>
       <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; margin-bottom:1.2rem;">
-        For an old tracklet <em>a</em> and a new tracklet <em>b</em>, we extrapolate the endpoint of <em>a</em> using a 3-point velocity estimate and merge <em>b</em> into <em>a</em> only when <strong>all</strong> of the following criteria are satisfied:
+        Given tracklets <em>a</em> (old) and <em>b</em> (new), we extrapolate <em>a</em>'s endpoint via a 3-point velocity estimate and merge only when <strong>all four</strong> criteria hold:
       </p>
 
       <div class="formula-block">
@@ -767,7 +778,7 @@
           <div class="ci-icon">1</div>
           <div class="ci-text">
             <h5>Border-Aware</h5>
-            <p>Both endpoints lie outside a 60-pixel border band (no border entry/exit)</p>
+            <p>Both endpoints outside 60-px border band</p>
           </div>
         </div>
         <div class="criteria-item">
@@ -781,14 +792,14 @@
           <div class="ci-icon">3</div>
           <div class="ci-text">
             <h5>Spatial Proximity</h5>
-            <p>‖c̃<sub>a</sub> − c<sup>start</sup><sub>b</sub>‖₂ ≤ 80 pixels</p>
+            <p>‖c̃<sub>a</sub> − c<sup>start</sup><sub>b</sub>‖₂ ≤ 80 px</p>
           </div>
         </div>
         <div class="criteria-item">
           <div class="ci-icon">4</div>
           <div class="ci-text">
             <h5>Motion Consistency</h5>
-            <p>Angle ≤ 45° and speed ratio ≤ 3.0 (if speed ≥ 0.25 px/frame)</p>
+            <p>Angle ≤ 45°, speed ratio ≤ 3.0</p>
           </div>
         </div>
       </div>
@@ -945,7 +956,7 @@
     </div>
 
     <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
-      <strong>Key finding:</strong> The proposed tracklet stitching module improves IDF1 by <strong>+4.15%p</strong> over vanilla SORT while maintaining nearly identical localization accuracy. Notably, our simple SORT-based approach outperforms all complex trackers (ByteTrack, BoT-SORT, DiffMOT, OC-SORT, SAM3) across all three primary metrics.
+      <strong>Key finding:</strong> Tracklet stitching improves IDF1 by <strong>+4.15%p</strong> over vanilla SORT. Our SORT-based pipeline outperforms all tested complex trackers across MOTA, MOTP, and IDF1.
     </p>
   </div>
 </section>
@@ -960,17 +971,17 @@
       <div class="contrib-card">
         <div class="contrib-icon purple"><i class="fas fa-puzzle-piece"></i></div>
         <h4>Modular Pipeline</h4>
-        <p>Detection → Tracking → Repair, each swappable. Easy to benchmark different tracker variants on the same framework.</p>
+        <p>Detection &rarr; Tracking &rarr; Repair, each swappable. Easy to benchmark different tracker variants.</p>
       </div>
       <div class="contrib-card">
         <div class="contrib-icon gold"><i class="fas fa-link"></i></div>
         <h4>Identity-Repair Module</h4>
-        <p>Online short-gap recovery + offline tracklet stitching together push IDF1 by +4.15%p.</p>
+        <p>Online short-gap recovery + offline stitching together push IDF1 by +4.15%p.</p>
       </div>
       <div class="contrib-card">
         <div class="contrib-icon green"><i class="fas fa-feather-alt"></i></div>
         <h4>Lightweight &amp; Efficient</h4>
-        <p>No Re-ID module. SORT tracking costs 0.25 MB &mdash; 96,000× smaller than SAM3 (24 GB).</p>
+        <p>No Re-ID module. SORT costs 0.25&thinsp;MB&mdash;96,000&times; smaller than SAM3.</p>
       </div>
     </div>
   </div>
