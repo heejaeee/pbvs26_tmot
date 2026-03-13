@@ -4,517 +4,1012 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  <!-- Primary Meta Tags -->
-  <!-- TODO: Replace with your paper title and author names -->
-  <meta name="title" content="PAPER_TITLE - AUTHOR_NAMES">
-  <!-- TODO: Write a compelling 150-160 character description of your research -->
-  <meta name="description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Add 5-10 relevant keywords for your research area -->
-  <meta name="keywords" content="KEYWORD1, KEYWORD2, KEYWORD3, machine learning, computer vision, AI">
-  <!-- TODO: List all authors -->
-  <meta name="author" content="FIRST_AUTHOR_NAME, SECOND_AUTHOR_NAME">
+  <meta name="title" content="Robust Thermal Pedestrian MOT through Three-Stage Trajectory Refinement">
+  <meta name="description" content="A three-stage framework for thermal pedestrian multi-object tracking combining YOLOv8 detection, SORT-based online tracking, and offline tracklet stitching for identity-consistent surveillance.">
+  <meta name="keywords" content="thermal MOT, multi-object tracking, pedestrian tracking, YOLOv8, SORT, tracklet stitching, thermal imaging, PBVS, identity preservation">
+  <meta name="author" content="Winston Sun, Gyungmin Ko, Heejae Kwon, Celine Hsu, Hsiang-wei Huang">
   <meta name="robots" content="index, follow">
-  <meta name="language" content="English">
   
-  <!-- Open Graph / Facebook -->
   <meta property="og:type" content="article">
-  <!-- TODO: Replace with your institution or lab name -->
-  <meta property="og:site_name" content="INSTITUTION_OR_LAB_NAME">
-  <!-- TODO: Same as paper title above -->
-  <meta property="og:title" content="PAPER_TITLE">
-  <!-- TODO: Same as description above -->
-  <meta property="og:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Replace with your actual website URL -->
-  <meta property="og:url" content="https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE">
-  <!-- TODO: Create a 1200x630px preview image and update path -->
-  <meta property="og:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="PAPER_TITLE - Research Preview">
-  <meta property="article:published_time" content="2024-01-01T00:00:00.000Z">
-  <meta property="article:author" content="FIRST_AUTHOR_NAME">
-  <meta property="article:section" content="Research">
-  <meta property="article:tag" content="KEYWORD1">
-  <meta property="article:tag" content="KEYWORD2">
+  <meta property="og:site_name" content="UW IPL - Information Processing Lab">
+  <meta property="og:title" content="Robust Thermal Pedestrian MOT through Three-Stage Trajectory Refinement">
+  <meta property="og:description" content="A lightweight three-stage thermal pedestrian MOT framework achieving MOTA 0.99 and IDF1 0.86 without heavy re-identification models.">
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <!-- TODO: Replace with your lab/institution Twitter handle -->
-  <meta name="twitter:site" content="@YOUR_TWITTER_HANDLE">
-  <!-- TODO: Replace with first author's Twitter handle -->
-  <meta name="twitter:creator" content="@AUTHOR_TWITTER_HANDLE">
-  <!-- TODO: Same as paper title above -->
-  <meta name="twitter:title" content="PAPER_TITLE">
-  <!-- TODO: Same as description above -->
-  <meta name="twitter:description" content="BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS">
-  <!-- TODO: Same as social preview image above -->
-  <meta name="twitter:image" content="https://YOUR_DOMAIN.com/static/images/social_preview.png">
-  <meta name="twitter:image:alt" content="PAPER_TITLE - Research Preview">
+  <meta name="citation_title" content="Robust Thermal Pedestrian Multi-Object Tracking through Three-Stage Trajectory Refinement">
+  <meta name="citation_author" content="Sun, Winston">
+  <meta name="citation_author" content="Ko, Gyungmin">
+  <meta name="citation_author" content="Kwon, Heejae">
+  <meta name="citation_author" content="Hsu, Celine">
+  <meta name="citation_author" content="Huang, Hsiang-wei">
+  <meta name="citation_publication_date" content="2026">
+  <meta name="citation_conference_title" content="CVPR 2026 Workshop on Perception Beyond the Visible Spectrum (PBVS)">
 
-  <!-- Academic/Research Specific -->
-  <meta name="citation_title" content="PAPER_TITLE">
-  <meta name="citation_author" content="FIRST_AUTHOR_LAST, FIRST_AUTHOR_FIRST">
-  <meta name="citation_author" content="SECOND_AUTHOR_LAST, SECOND_AUTHOR_FIRST">
-  <meta name="citation_publication_date" content="2024">
-  <meta name="citation_conference_title" content="CONFERENCE_NAME">
-  <meta name="citation_pdf_url" content="https://YOUR_DOMAIN.com/static/pdfs/paper.pdf">
+  <title>Robust Thermal Pedestrian MOT | Three-Stage Trajectory Refinement</title>
   
-  <!-- Additional SEO -->
-  <meta name="theme-color" content="#2563eb">
-  <meta name="msapplication-TileColor" content="#2563eb">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-  
-  <!-- Preconnect for performance -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://ajax.googleapis.com">
-  <link rel="preconnect" href="https://documentcloud.adobe.com">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,800&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+  <style>
+    :root {
+      --purple-main: #4b2e83;
+      --purple-light: #6a4baf;
+      --gold-main: #b7a57a;
+      --gold-light: #d4c9a8;
+      --gold-dark: #85754d;
+      --bg-warm: #faf9f6;
+      --bg-section: #f3f1ec;
+      --text-primary: #1a1a2e;
+      --text-secondary: #4a4a5a;
+      --accent-green: #2d6a4f;
+      --accent-red: #c1292e;
+      --border-subtle: #e8e4dd;
+    }
 
-  <!-- TODO: Replace with your paper title and authors -->
-  <title>PAPER_TITLE - AUTHOR_NAMES | Academic Research</title>
-  
-  <!-- Favicon and App Icons -->
-  <link rel="icon" type="image/x-icon" href="static/images/favicon.ico">
-  <link rel="apple-touch-icon" href="static/images/favicon.ico">
-  
-  <!-- Critical CSS - Load synchronously -->
-  <link rel="stylesheet" href="static/css/bulma.min.css">
-  <link rel="stylesheet" href="static/css/index.css">
-  
-  <!-- Non-critical CSS - Load asynchronously -->
-  <link rel="preload" href="static/css/bulma-carousel.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/bulma-slider.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="static/css/fontawesome.all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <link rel="preload" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  
-  <!-- Fallback for browsers that don't support preload -->
-  <noscript>
-    <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
-    <link rel="stylesheet" href="static/css/bulma-slider.min.css">
-    <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  </noscript>
-  
-  <!-- Fonts - Optimized loading -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  
-  <!-- Defer non-critical JavaScript -->
-  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
-  <script defer src="static/js/fontawesome.all.min.js"></script>
-  <script defer src="static/js/bulma-carousel.min.js"></script>
-  <script defer src="static/js/bulma-slider.min.js"></script>
-  <script defer src="static/js/index.js"></script>
-  
-  <!-- Structured Data for Academic Papers -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ScholarlyArticle",
-    "headline": "PAPER_TITLE",
-    "description": "BRIEF_DESCRIPTION_OF_YOUR_RESEARCH_CONTRIBUTION_AND_FINDINGS",
-    "author": [
-      {
-        "@type": "Person",
-        "name": "FIRST_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      },
-      {
-        "@type": "Person",
-        "name": "SECOND_AUTHOR_NAME",
-        "affiliation": {
-          "@type": "Organization",
-          "name": "INSTITUTION_NAME"
-        }
-      }
-    ],
-    "datePublished": "2024-01-01",
-    "publisher": {
-      "@type": "Organization",
-      "name": "CONFERENCE_OR_JOURNAL_NAME"
-    },
-    "url": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE",
-    "image": "https://YOUR_DOMAIN.com/static/images/social_preview.png",
-    "keywords": ["KEYWORD1", "KEYWORD2", "KEYWORD3", "machine learning", "computer vision"],
-    "abstract": "FULL_ABSTRACT_TEXT_HERE",
-    "citation": "BIBTEX_CITATION_HERE",
-    "isAccessibleForFree": true,
-    "license": "https://creativecommons.org/licenses/by/4.0/",
-    "mainEntity": {
-      "@type": "WebPage",
-      "@id": "https://YOUR_DOMAIN.com/YOUR_PROJECT_PAGE"
-    },
-    "about": [
-      {
-        "@type": "Thing",
-        "name": "RESEARCH_AREA_1"
-      },
-      {
-        "@type": "Thing", 
-        "name": "RESEARCH_AREA_2"
-      }
-    ]
-  }
-  </script>
-  
-  <!-- Website/Organization Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "INSTITUTION_OR_LAB_NAME",
-    "url": "https://YOUR_INSTITUTION_WEBSITE.com",
-    "logo": "https://YOUR_DOMAIN.com/static/images/favicon.ico",
-    "sameAs": [
-      "https://twitter.com/YOUR_TWITTER_HANDLE",
-      "https://github.com/YOUR_GITHUB_USERNAME"
-    ]
-  }
-  </script>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-warm);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Hero Section ── */
+    .hero-section {
+      background: linear-gradient(135deg, var(--purple-main) 0%, #2d1a4e 60%, #1a0e30 100%);
+      padding: 4rem 2rem 3.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+    }
+
+    .hero-section .uw-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(183, 165, 122, 0.15);
+      border: 1px solid rgba(183, 165, 122, 0.3);
+      border-radius: 100px;
+      padding: 0.35rem 1rem;
+      color: var(--gold-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .hero-section .paper-title {
+      font-family: 'Source Serif 4', serif;
+      font-size: 2.6rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-section .author-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.4rem 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-section .author-list a {
+      color: var(--gold-light);
+      font-size: 1.05rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .hero-section .author-list a:hover { color: #fff; }
+
+    .hero-section .affiliation {
+      color: rgba(255,255,255,0.6);
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+    .hero-section .venue {
+      color: var(--gold-main);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    .hero-section .advisor-line {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    .link-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1.8rem;
+    }
+
+    .link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.25s;
+      border: 1.5px solid transparent;
+    }
+
+    .link-btn.primary {
+      background: var(--gold-main);
+      color: var(--purple-main);
+    }
+    .link-btn.primary:hover {
+      background: #c9b88e;
+      transform: translateY(-1px);
+    }
+
+    .link-btn.secondary {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border-color: rgba(255,255,255,0.2);
+    }
+    .link-btn.secondary:hover {
+      background: rgba(255,255,255,0.15);
+      border-color: rgba(255,255,255,0.35);
+    }
+
+    /* ── TLDR Banner ── */
+    .tldr-banner {
+      background: linear-gradient(90deg, var(--gold-main), var(--gold-dark));
+      padding: 1rem 2rem;
+      text-align: center;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+    .tldr-banner .tldr-label {
+      background: rgba(0,0,0,0.2);
+      padding: 0.15rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-right: 0.5rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* ── Content Sections ── */
+    .content-section {
+      padding: 3.5rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--purple-main);
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .section-divider {
+      width: 50px;
+      height: 3px;
+      background: var(--gold-main);
+      border: none;
+      margin-bottom: 1.5rem;
+      border-radius: 2px;
+    }
+
+    /* ── Abstract ── */
+    .abstract-section {
+      background: var(--bg-section);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .abstract-text {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-secondary);
+      text-align: justify;
+      hyphens: auto;
+    }
+
+    /* ── Pipeline Figure ── */
+    .pipeline-section {
+      background: #fff;
+    }
+    .pipeline-figure {
+      background: var(--bg-section);
+      border-radius: 12px;
+      padding: 2rem;
+      border: 1px solid var(--border-subtle);
+      margin-top: 1rem;
+    }
+
+    .pipeline-stages {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .stage-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.2rem 0.8rem;
+      text-align: center;
+      border: 1px solid var(--border-subtle);
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .stage-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .stage-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--purple-main);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .stage-card.highlight {
+      border-color: var(--gold-main);
+      background: linear-gradient(135deg, #fffdf7, #fff9ed);
+    }
+    .stage-card.highlight .stage-number {
+      background: var(--gold-main);
+      color: var(--purple-main);
+    }
+
+    .stage-card h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: var(--text-primary);
+    }
+    .stage-card p {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .stage-arrow {
+      display: none;
+    }
+
+    .pipeline-caption {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      text-align: center;
+      font-style: italic;
+      margin-top: 1rem;
+    }
+
+    /* ── Key Insight Box ── */
+    .insight-box {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .insight-card {
+      padding: 1.8rem 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+    .insight-card.problem {
+      background: #fdf2f2;
+      border-color: #f0d0d0;
+    }
+    .insight-card.solution {
+      background: #f0f7f3;
+      border-color: #c8e0d2;
+    }
+
+    .insight-card h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 1rem;
+    }
+    .insight-card.problem h4 { color: var(--accent-red); }
+    .insight-card.solution h4 { color: var(--accent-green); }
+
+    .insight-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .insight-card li {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      padding-left: 1.4rem;
+      margin-bottom: 0.65em;
+      position: relative;
+      color: var(--text-secondary);
+    }
+    .insight-card li:last-child {
+      margin-bottom: 0;
+    }
+    .insight-card li::before {
+      position: absolute;
+      left: 0;
+      font-size: 0.8rem;
+      top: 0.05em;
+    }
+    .insight-card.problem li::before { content: '✕'; color: var(--accent-red); }
+    .insight-card.solution li::before { content: '✓'; color: var(--accent-green); font-weight: 700; }
+
+    /* ── Results Tables ── */
+    .results-section {
+      background: var(--bg-section);
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .result-table-wrap {
+      overflow-x: auto;
+      margin-bottom: 2rem;
+    }
+
+    .result-table-wrap .table-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--purple-light);
+      margin-bottom: 0.6rem;
+    }
+
+    table.results {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      background: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+
+    table.results thead {
+      background: var(--purple-main);
+      color: #fff;
+    }
+    table.results thead th {
+      padding: 0.7rem 0.9rem;
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
+    table.results tbody td {
+      padding: 0.65rem 0.9rem;
+      border-bottom: 1px solid #f0ede8;
+      white-space: nowrap;
+    }
+
+    table.results tbody tr:last-child td { border-bottom: none; }
+
+    table.results tbody tr.highlight-row {
+      background: linear-gradient(90deg, #fdf8ed, #fef9f0);
+      font-weight: 600;
+    }
+    table.results tbody tr.highlight-row td:first-child {
+      border-left: 3px solid var(--gold-main);
+    }
+
+    .best-val { color: var(--accent-green); font-weight: 700; }
+    .arrow-up { font-size: 0.7rem; margin-left: 2px; }
+
+    /* ── Contributions ── */
+    .contrib-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+
+    .contrib-card {
+      background: #fff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: transform 0.2s;
+    }
+    .contrib-card:hover { transform: translateY(-2px); }
+
+    .contrib-icon {
+      width: 40px; height: 40px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 0.8rem;
+    }
+    .contrib-icon.purple { background: #ede8f5; color: var(--purple-main); }
+    .contrib-icon.gold { background: #f5f0e3; color: var(--gold-dark); }
+    .contrib-icon.green { background: #e3f0e8; color: var(--accent-green); }
+
+    .contrib-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--text-primary);
+    }
+    .contrib-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ── Stitching Detail ── */
+    .stitching-detail {
+      background: #fff;
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-top: 1.5rem;
+    }
+
+    .stitching-detail h3 {
+      font-family: 'Source Serif 4', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .criteria-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+    }
+
+    .criteria-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      padding: 0.8rem;
+      background: var(--bg-section);
+      border-radius: 8px;
+    }
+    .criteria-item .ci-icon {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      background: var(--purple-main);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 700;
+    }
+    .criteria-item .ci-text h5 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      margin-bottom: 0.15rem;
+    }
+    .criteria-item .ci-text p {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* ── Math formulas ── */
+    .formula-block {
+      background: var(--bg-section);
+      border-left: 3px solid var(--purple-light);
+      padding: 1rem 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      overflow-x: auto;
+    }
+
+    /* ── BibTeX ── */
+    .bibtex-section {
+      background: var(--bg-section);
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .bibtex-block {
+      position: relative;
+      background: #1a1a2e;
+      color: #e0ddd5;
+      border-radius: 10px;
+      padding: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: var(--gold-light);
+      padding: 0.35rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s;
+    }
+    .copy-btn:hover { background: rgba(255,255,255,0.2); }
+
+    /* ── Footer ── */
+    footer.site-footer {
+      background: var(--purple-main);
+      color: rgba(255,255,255,0.5);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+    }
+    footer.site-footer a {
+      color: var(--gold-light);
+      text-decoration: none;
+    }
+    footer.site-footer a:hover { text-decoration: underline; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .hero-section .paper-title { font-size: 1.7rem; }
+      .pipeline-stages { grid-template-columns: 1fr; }
+      .insight-box { grid-template-columns: 1fr; }
+      .contrib-grid { grid-template-columns: 1fr; }
+      .criteria-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-section { padding: 2.5rem 1rem 2rem; }
+      .content-section { padding: 2.5rem 1rem; }
+      .link-buttons { flex-direction: column; align-items: center; }
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-section > .container > * {
+      animation: fadeInUp 0.6s ease-out both;
+    }
+    .hero-section > .container > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-section > .container > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-section > .container > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-section > .container > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-section > .container > *:nth-child(5) { animation-delay: 0.5s; }
+    .hero-section > .container > *:nth-child(6) { animation-delay: 0.6s; }
+  </style>
 </head>
 <body>
 
-
-  <!-- Scroll to Top Button -->
-  <button class="scroll-to-top" onclick="scrollToTop()" title="Scroll to top" aria-label="Scroll to top">
-    <i class="fas fa-chevron-up"></i>
-  </button>
-
-  <!-- More Works Dropdown -->
-  <div class="more-works-container">
-    <button class="more-works-btn" onclick="toggleMoreWorks()" title="View More Works from Our Lab">
-      <i class="fas fa-flask"></i>
-      More Works
-      <i class="fas fa-chevron-down dropdown-arrow"></i>
-    </button>
-    <div class="more-works-dropdown" id="moreWorksDropdown">
-      <div class="dropdown-header">
-        <h4>More Works from Our Lab</h4>
-        <button class="close-btn" onclick="toggleMoreWorks()">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-      <div class="works-list">
-        <!-- TODO: Replace with your lab's related works -->
-        <a href="https://arxiv.org/abs/PAPER_ID_1" class="work-item" target="_blank">
-          <div class="work-info">
-            <!-- TODO: Replace with actual paper title -->
-            <h5>Paper Title 1</h5>
-            <!-- TODO: Replace with brief description -->
-            <p>Brief description of the work and its main contribution.</p>
-            <!-- TODO: Replace with venue and year -->
-            <span class="work-venue">Conference/Journal 2024</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <!-- TODO: Add more related works or remove extra items -->
-        <a href="https://arxiv.org/abs/PAPER_ID_2" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Paper Title 2</h5>
-            <p>Brief description of the work and its main contribution.</p>
-            <span class="work-venue">Conference/Journal 2023</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-        <a href="https://arxiv.org/abs/PAPER_ID_3" class="work-item" target="_blank">
-          <div class="work-info">
-            <h5>Paper Title 3</h5>
-            <p>Brief description of the work and its main contribution.</p>
-            <span class="work-venue">Conference/Journal 2023</span>
-          </div>
-          <i class="fas fa-external-link-alt"></i>
-        </a>
-      </div>
+<!-- ════════════════ HERO ════════════════ -->
+<section class="hero-section">
+  <div class="container" style="position:relative; z-index:1; text-align:center;">
+    
+    <div class="uw-badge">
+      <i class="fas fa-trophy" style="font-size:0.7rem;"></i>
+      PBVS 2026 TP-MOT Challenge &mdash; Top-3 Finalist
     </div>
-  </div>
 
-  <main id="main-content">
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <!-- TODO: Replace with your paper title -->
-            <h1 class="title is-1 publication-title">Academic Project Page</h1>
-            <div class="is-size-5 publication-authors">
-              <!-- TODO: Replace with your paper authors and their personal links -->
-              <span class="author-block">
-                <a href="FIRST AUTHOR PERSONAL LINK" target="_blank">First Author</a><sup>*</sup>,</span>
-                <span class="author-block">
-                  <a href="SECOND AUTHOR PERSONAL LINK" target="_blank">Second Author</a><sup>*</sup>,</span>
-                  <span class="author-block">
-                    <a href="THIRD AUTHOR PERSONAL LINK" target="_blank">Third Author</a>
-                  </span>
-                  </div>
+    <h1 class="paper-title">
+      Robust Thermal Pedestrian Multi-Object Tracking<br>
+      through Three-Stage Trajectory Refinement
+    </h1>
 
-                  <div class="is-size-5 publication-authors">
-                    <!-- TODO: Replace with your institution and conference/journal info -->
-                    <span class="author-block">Institution Name<br>Conference name and year</span>
-                    <!-- TODO: Remove this line if no equal contribution -->
-                    <span class="eql-cntrb"><small><br><sup>*</sup>Indicates Equal Contribution</small></span>
-                  </div>
-
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-                         <!-- TODO: Update with your arXiv paper ID -->
-                      <span class="link-block">
-                        <a href="https://arxiv.org/pdf/<ARXIV PAPER ID>.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
-                      </a>
-                    </span>
-
-                    <!-- TODO: Add your supplementary material PDF or remove this section -->
-                    <span class="link-block">
-                      <a href="static/pdfs/supplementary_material.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Supplementary</span>
-                    </a>
-                  </span>
-
-                  <!-- TODO: Replace with your GitHub repository URL -->
-                  <span class="link-block">
-                    <a href="https://github.com/YOUR REPO HERE" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-
-                <!-- TODO: Update with your arXiv paper ID -->
-                <span class="link-block">
-                  <a href="https://arxiv.org/abs/<ARXIV PAPER ID>" target="_blank"
-                  class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                    <i class="ai ai-arxiv"></i>
-                  </span>
-                  <span>arXiv</span>
-                </a>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="author-list">
+      <a href="#">Winston Sun</a>
+      <a href="https://www.linkedin.com/in/kogaenggg/" target="_blank">Gyungmin Ko</a>
+      <a href="#">Heejae Kwon</a>
+      <a href="#">Celine Hsu</a>
+      <a href="https://hsiangwei0903.github.io/" target="_blank">Hsiang-wei Huang</a>
     </div>
+
+    <div class="affiliation">
+      Department of Electrical &amp; Computer Engineering, University of Washington
+    </div>
+    <div class="venue">
+      CVPR 2026 &middot; Perception Beyond the Visible Spectrum (PBVS) Workshop
+    </div>
+    <div class="advisor-line">
+      Advisor: Prof. Jenq-Neng Hwang
+    </div>
+
+    <div class="link-buttons">
+      <a href="pbvs26_mot.pdf" class="link-btn primary" target="_blank">
+        <i class="fas fa-file-pdf"></i> Paper
+      </a>
+      <a href="https://github.com/heejaeee/pbvs26_tmot" class="link-btn secondary" target="_blank">
+        <i class="fab fa-github"></i> Code
+      </a>
+      <a href="pbvs26_mot_poster.pdf" class="link-btn secondary" target="_blank">
+        <i class="fas fa-image"></i> Poster
+      </a>
+    </div>
+
   </div>
 </section>
 
-
-<!-- Teaser video-->
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <!-- TODO: Replace with your teaser video -->
-      <video poster="" id="tree" autoplay controls muted loop height="100%" preload="metadata">
-        <!-- TODO: Add your video file path here -->
-        <source src="static/videos/banner_video.mp4" type="video/mp4">
-      </video>
-      <!-- TODO: Replace with your video description -->
-      <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
-      </h2>
-    </div>
-  </div>
-</section>
-<!-- End teaser video -->
-
-<!-- Paper abstract -->
-<section class="section hero is-light">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <!-- TODO: Replace with your paper abstract -->
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End paper abstract -->
-
-
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- TODO: Replace with your research result images -->
-        <img src="static/images/carousel1.jpg" alt="First research result visualization" loading="lazy"/>
-        <!-- TODO: Replace with description of this result -->
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel2.jpg" alt="Second research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="static/images/carousel3.jpg" alt="Third research result visualization" loading="lazy"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="static/images/carousel4.jpg" alt="Fourth research result visualization" loading="lazy"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
+<!-- ════════════════ TL;DR ════════════════ -->
+<div class="tldr-banner">
+  <span class="tldr-label">TL;DR</span>
+  YOLOv8 + tuned SORT + tracklet stitching &rarr; <strong>MOTA 0.99</strong> &amp; <strong>IDF1 0.86</strong>, no Re-ID needed
 </div>
-</div>
+
+<!-- ════════════════ ABSTRACT ════════════════ -->
+<section class="abstract-section">
+  <div class="content-section">
+    <h2 class="section-title">Abstract</h2>
+    <hr class="section-divider">
+    <p class="abstract-text">
+      Tracking multiple objects in thermal imagery is important for surveillance and perception under low-visibility conditions, but thermal images pose specific difficulties: objects lack distinctive appearance features, contrast is low, and occlusions are common.
+    </p>
+    <p class="abstract-text" style="margin-top: 0.8rem;">
+      We propose <strong>a three-stage framework</strong> for pedestrian MOT on the TP-MOT benchmark, combining thermal-adapted detection, online tracking, and an offline tracklet stitching module. The core of our approach is <strong>a lightweight post-processing step</strong> that reconnects fragmented trajectories by exploiting temporal gaps, spatial proximity, motion consistency, and boundary-aware constraints. This keeps the online tracker simple&mdash;no re-identification network or global optimization is needed&mdash;while substantially improving identity preservation.
+    </p>
+    <p class="abstract-text" style="margin-top: 0.8rem;">
+      On the PBVS Thermal MOT benchmark, the proposed stitching stage consistently reduces fragmentation and improves long-term identity continuity, offering a practical real-time solution for thermal pedestrian surveillance.
+    </p>
+  </div>
 </section>
-<!-- End image carousel -->
 
+<!-- ════════════════ CHALLENGES & APPROACH ════════════════ -->
+<section class="pipeline-section">
+  <div class="content-section">
+    <h2 class="section-title">Challenges &amp; Our Approach</h2>
+    <hr class="section-divider">
 
+    <div class="insight-box">
+      <div class="insight-card problem">
+        <h4><i class="fas fa-exclamation-triangle"></i>&ensp;Thermal MOT Challenges</h4>
+        <ul>
+          <li>Heat-only sensing&mdash;no color or texture</li>
+          <li>Low contrast, frequent occlusion</li>
+          <li>Abrupt motion &amp; scale changes</li>
+        </ul>
+      </div>
+      <div class="insight-card solution">
+        <h4><i class="fas fa-lightbulb"></i>&ensp;Our Key Insight</h4>
+        <ul>
+          <li>Tune a simple pipeline, don't stack modules</li>
+          <li>SORT tracker + offline tracklet stitching</li>
+          <li>Short-gap repair + motion-aware merging</li>
+          <li>No Re-ID&mdash;96,000&times; less memory than SAM3</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- ════════════════ PIPELINE ════════════════ -->
+<section style="background: #fff;">
+  <div class="content-section">
+    <h2 class="section-title">Framework Overview</h2>
+    <hr class="section-divider">
 
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- TODO: Replace with your YouTube video ID -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <div class="pipeline-figure">
+      <div class="pipeline-stages">
+        <div class="stage-card">
+          <div class="stage-number">1</div>
+          <h4>Input</h4>
+          <p>Thermal image sequences</p>
+        </div>
+        <div class="stage-card">
+          <div class="stage-number">2</div>
+          <h4>Detection</h4>
+          <p>YOLOv8s pedestrian detector<br>(1920px, conf&thinsp;=&thinsp;10⁻⁴, NMS&thinsp;=&thinsp;0.75)</p>
+        </div>
+        <div class="stage-card">
+          <div class="stage-number">3</div>
+          <h4>Online Tracking</h4>
+          <p>SORT: Kalman filter +<br>Hungarian matching</p>
+        </div>
+        <div class="stage-card highlight">
+          <div class="stage-number">4</div>
+          <h4>Identity Repair</h4>
+          <p>Online short-gap recovery +<br>Offline tracklet stitching</p>
+        </div>
+        <div class="stage-card">
+          <div class="stage-number">5</div>
+          <h4>Output</h4>
+          <p>Identity-consistent trajectories</p>
+        </div>
+      </div>
+      <p class="pipeline-caption">
+        <strong>Figure 1.</strong> Proposed thermal pedestrian MOT pipeline. Stage 4 (highlighted) is our main contribution.
+      </p>
+    </div>
+
+    <!-- Stitching Detail -->
+    <div class="stitching-detail">
+      <h3>Offline Motion-Consistent Tracklet Stitching</h3>
+      <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7; margin-bottom:1.2rem;">
+        Given tracklets <em>a</em> (old) and <em>b</em> (new), we extrapolate <em>a</em>'s endpoint via a 3-point velocity estimate and merge only when <strong>all four</strong> criteria hold:
+      </p>
+
+      <div class="formula-block">
+        c̃<sub>a</sub> = c<sup>end</sup><sub>a</sub> + v<sub>a</sub> · Δt &emsp;where&emsp; Δt = t<sup>start</sup><sub>b</sub> − t<sup>end</sup><sub>a</sub>
+      </div>
+
+      <div class="criteria-grid" style="margin-top:1rem;">
+        <div class="criteria-item">
+          <div class="ci-icon">1</div>
+          <div class="ci-text">
+            <h5>Border-Aware</h5>
+            <p>Both endpoints outside 60-px border band</p>
+          </div>
+        </div>
+        <div class="criteria-item">
+          <div class="ci-icon">2</div>
+          <div class="ci-text">
+            <h5>Temporal Gap</h5>
+            <p>1 ≤ Δt ≤ 30 frames</p>
+          </div>
+        </div>
+        <div class="criteria-item">
+          <div class="ci-icon">3</div>
+          <div class="ci-text">
+            <h5>Spatial Proximity</h5>
+            <p>‖c̃<sub>a</sub> − c<sup>start</sup><sub>b</sub>‖₂ ≤ 80 px</p>
+          </div>
+        </div>
+        <div class="criteria-item">
+          <div class="ci-icon">4</div>
+          <div class="ci-text">
+            <h5>Motion Consistency</h5>
+            <p>Angle ≤ 45°, speed ratio ≤ 3.0</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End youtube video -->
 
+<!-- ════════════════ RESULTS ════════════════ -->
+<section class="results-section">
+  <div class="content-section">
+    <h2 class="section-title">Experimental Results</h2>
+    <hr class="section-divider">
 
-<!-- Video carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title is-3">Another Carousel</h2>
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-video1">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video1" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel1.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video2">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video2" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel2.mp4" type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-video3">
-          <!-- TODO: Add poster image for better preview -->
-          <video poster="" id="video3" controls muted loop height="100%" preload="metadata">
-            <!-- Your video file here -->
-            <source src="static/videos/carousel3.mp4" type="video/mp4">
-          </video>
-        </div>
+    <!-- Table 1: Leaderboard -->
+    <div class="result-table-wrap">
+      <div class="table-label">Table 1 &mdash; PBVS TP-MOT Challenge Leaderboard (Evaluation Server)</div>
+      <table class="results">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Participant</th>
+            <th>MOTA ↑</th>
+            <th>MOTP ↓</th>
+            <th>IDF1 ↑</th>
+            <th>IDP</th>
+            <th>IDR</th>
+            <th>Recall</th>
+            <th>Precision</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight-row">
+            <td>1</td>
+            <td><strong>Ours (UW_IPL)</strong></td>
+            <td class="best-val">0.99</td>
+            <td>0.13</td>
+            <td class="best-val">0.86</td>
+            <td>0.86</td>
+            <td>0.86</td>
+            <td class="best-val">1.00</td>
+            <td class="best-val">1.00</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>wqetwet</td>
+            <td>0.97</td>
+            <td class="best-val">0.12</td>
+            <td class="best-val">0.97</td>
+            <td>0.98</td>
+            <td>0.96</td>
+            <td>0.98</td>
+            <td>1.00</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>SKKU-AutoLab</td>
+            <td>0.97</td>
+            <td>0.14</td>
+            <td>0.94</td>
+            <td>0.95</td>
+            <td>0.93</td>
+            <td>0.98</td>
+            <td>1.00</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>wwww123</td>
+            <td>0.85</td>
+            <td>0.12</td>
+            <td>0.86</td>
+            <td>0.91</td>
+            <td>0.82</td>
+            <td>0.89</td>
+            <td>0.98</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>spcke</td>
+            <td>0.82</td>
+            <td>0.14</td>
+            <td>0.86</td>
+            <td>0.90</td>
+            <td>0.83</td>
+            <td>0.88</td>
+            <td>0.94</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Table 2: Tracker Comparison -->
+    <div class="result-table-wrap">
+      <div class="table-label">Table 2 &mdash; Tracker Comparison (Same YOLOv8 Detections, Evaluation Server)</div>
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>MOTA ↑</th>
+            <th>MOTP ↓</th>
+            <th>IDF1 ↑</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ByteTrack</td>
+            <td>0.9173</td>
+            <td>0.1367</td>
+            <td>0.7659</td>
+          </tr>
+          <tr>
+            <td>BoT-SORT</td>
+            <td>0.9174</td>
+            <td>0.1368</td>
+            <td>0.7605</td>
+          </tr>
+          <tr>
+            <td>BoostTrack</td>
+            <td>0.8654</td>
+            <td>0.1555</td>
+            <td>0.7545</td>
+          </tr>
+          <tr>
+            <td>DiffMOT</td>
+            <td>0.8630</td>
+            <td>0.1611</td>
+            <td>0.7812</td>
+          </tr>
+          <tr>
+            <td>OC-SORT</td>
+            <td>0.9071</td>
+            <td>0.1236</td>
+            <td>0.5685</td>
+          </tr>
+          <tr>
+            <td>SAM3</td>
+            <td>0.9003</td>
+            <td>0.2104</td>
+            <td>0.6073</td>
+          </tr>
+          <tr>
+            <td>SORT (baseline)</td>
+            <td>0.9844</td>
+            <td>0.1263</td>
+            <td>0.8130</td>
+          </tr>
+          <tr class="highlight-row">
+            <td><strong>SORT + Stitching (Ours)</strong></td>
+            <td class="best-val">0.9853 <span class="arrow-up">▲</span></td>
+            <td class="best-val">0.1262</td>
+            <td class="best-val">0.8545 <span class="arrow-up">▲</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="font-size:0.9rem; color:var(--text-secondary); line-height:1.7;">
+      <strong>Key finding:</strong> Tracklet stitching improves IDF1 by <strong>+4.15%p</strong> over vanilla SORT. Our SORT-based pipeline outperforms all tested complex trackers across MOTA, MOTP, and IDF1.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════ CONTRIBUTIONS ════════════════ -->
+<section style="background: #fff;">
+  <div class="content-section">
+    <h2 class="section-title">Contributions</h2>
+    <hr class="section-divider">
+
+    <div class="contrib-grid">
+      <div class="contrib-card">
+        <div class="contrib-icon purple"><i class="fas fa-puzzle-piece"></i></div>
+        <h4>Modular Pipeline</h4>
+        <p>Detection &rarr; Tracking &rarr; Repair, each swappable. Easy to benchmark different tracker variants.</p>
+      </div>
+      <div class="contrib-card">
+        <div class="contrib-icon gold"><i class="fas fa-link"></i></div>
+        <h4>Identity-Repair Module</h4>
+        <p>Online short-gap recovery + offline stitching together push IDF1 by +4.15%p.</p>
+      </div>
+      <div class="contrib-card">
+        <div class="contrib-icon green"><i class="fas fa-feather-alt"></i></div>
+        <h4>Lightweight &amp; Efficient</h4>
+        <p>No Re-ID module. SORT costs 0.25&thinsp;MB&mdash;96,000&times; smaller than SAM3.</p>
       </div>
     </div>
   </div>
 </section>
-<!-- End video carousel -->
 
-
-
-
-
-
-<!-- Paper poster -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <!-- TODO: Replace with your poster PDF -->
-      <iframe  src="static/pdfs/sample.pdf" width="100%" height="550">
-          </iframe>
-        
-      </div>
-    </div>
-  </section>
-<!--End paper poster -->
-
-
-
-<!--BibTex citation -->
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <div class="bibtex-header">
-        <h2 class="title">BibTeX</h2>
-        <button class="copy-bibtex-btn" onclick="copyBibTeX()" title="Copy BibTeX to clipboard">
-          <i class="fas fa-copy"></i>
-          <span class="copy-text">Copy</span>
-        </button>
-      </div>
-      <pre id="bibtex-code"><code>@article{YourPaperKey2024,
-  title={Your Paper Title Here},
-  author={First Author and Second Author and Third Author},
-  journal={Conference/Journal Name},
-  year={2024},
-  url={https://your-domain.com/your-project-page}
-}</code></pre>
-    </div>
-</section>
-<!--End BibTex citation -->
-
-
-  <footer class="footer">
-  <div class="container">
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-
-          <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the source code of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-
-        </div>
-      </div>
-    </div>
-  </div>
+<!-- ════════════════ FOOTER ════════════════ -->
+<footer class="site-footer">
+  <p>
+    This page was built using the 
+    <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>, 
+    adopted from <a href="https://nerfies.github.io" target="_blank">Nerfies</a>.
+    Licensed under <a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">CC BY-SA 4.0</a>.
+  </p>
+  <p style="margin-top:0.5rem;">
+    &copy; 2026 Information Processing Lab &middot; University of Washington
+  </p>
 </footer>
 
-<!-- Statcounter tracking code -->
-  
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+<script>
+function copyBibtex() {
+  const text = document.querySelector('.bibtex-block pre').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+    setTimeout(() => { btn.innerHTML = '<i class="fas fa-copy"></i> Copy'; }, 2000);
+  });
+}
+</script>
 
-    <!-- End of Statcounter Code -->
-
-  </body>
-  </html>
+</body>
+</html>
