@@ -88,18 +88,10 @@ pbvs25_tp-mot
 
 #### IV. Citation
 
-<a href="https://arxiv.org/abs/2507.02408"> <img alt="Static Badge" src="https://img.shields.io/badge/arXiv-2507.02408-%23CE0000?logo=arXiv&logoColor=rgb&labelColor=gray"></a>
+<a href=""> <img alt="Static Badge" src="https://img.shields.io/badge/arXiv-2507.02408-%23CE0000?logo=arXiv&logoColor=rgb&labelColor=gray"></a>
 
 ```bibtex
-@misc{tran2025noveltuningmethodrealtime,
-      title={A Novel Tuning Method for Real-time Multiple-Object Tracking Utilizing Thermal Sensor with Complexity Motion Pattern}, 
-      author={Duong Nguyen-Ngoc Tran and Long Hoang Pham and Chi Dai Tran and Quoc Pham-Nam Ho and Huy-Hung Nguyen and Jae Wook Jeon},
-      year={2025},
-      eprint={2507.02408},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2507.02408}, 
-}
+
 ```
 
 #### V. Acknowledgement
